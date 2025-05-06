@@ -1,0 +1,254 @@
+/* --- Main Container --- */
+.listproduct {
+  margin-left: 290px;
+  padding: 40px;
+  padding-top: 0px;
+  background: linear-gradient(135deg, #fff0f5 0%, #ffe6f0 100%);
+  min-height: 100vh;
+  width: 900px;
+  font-family: "Segoe UI", sans-serif;
+  color: #2c2c2c;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+  transition: all 0.5s ease-in-out;
+}
+
+/* Custom Scrollbar */
+.listproduct::-webkit-scrollbar {
+  width: 8px;
+}
+.listproduct::-webkit-scrollbar-track {
+  background: transparent;
+}
+.listproduct::-webkit-scrollbar-thumb {
+  background-color: #f8a5c2;
+  border-radius: 10px;
+  transition: background-color 0.3s ease;
+}
+.listproduct::-webkit-scrollbar-thumb:hover {
+  background-color: #e84393;
+}
+
+/* --- Header --- */
+.listproduct h1 {
+  font-size: 38px;
+  font-weight: 800;
+  text-align: center;
+  color: #e84393;
+  margin-bottom: 30px;
+  letter-spacing: 1px;
+  text-shadow: 2px 2px 6px rgba(232, 67, 147, 0.25);
+  animation: fadeInDown 1s ease-out;
+  border-bottom: 2px dashed #f8a5c2;
+  padding-bottom: 12px;
+  background: linear-gradient(to right, #e84393, #f8a5c2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* --- Header Row --- */
+.listproduct-format-main {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr 1fr 1fr 0.5fr;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(8px);
+  padding: 18px 24px;
+  border-radius: 14px;
+  box-shadow: 0 0 20px rgba(232, 67, 147, 0.14);
+  font-weight: bold;
+  color: #aa4466;
+  margin-bottom: 20px;
+  border: 1px solid #f8a5c2;
+  transition: all 0.3s ease-in-out;
+}
+
+/* --- Products Container --- */
+.listproduct-allproducts {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* --- Each Product --- */
+.listproduct-format {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr 1fr 1fr 0.5fr;
+  align-items: center;
+  background: linear-gradient(145deg, #fff, #fef4f8);
+  padding: 18px 24px;
+  border-radius: 16px;
+  box-shadow: 0 6px 28px rgba(0, 0, 0, 0.04);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  position: relative;
+  border: 1px solid #ffe1ed;
+  animation: fadeInUp 0.5s ease;
+}
+
+.listproduct-format:hover {
+  transform: scale(1.015);
+  box-shadow: 0 12px 32px rgba(232, 67, 147, 0.22);
+  border-left: 4px solid #e84393;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* --- Product Image --- */
+.listproduct-product-icon {
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 1px solid #ffd6e4;
+  animation: pulse 3s infinite;
+}
+
+/* Pulse Animation */
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(232, 67, 147, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 12px rgba(232, 67, 147, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(232, 67, 147, 0);
+  }
+}
+
+/* --- Text Styling --- */
+.listproduct-format p {
+  font-size: 15px;
+  margin: 0;
+  color: #444;
+  transition: color 0.3s ease, font-weight 0.3s;
+}
+.listproduct-format p:hover {
+  color: #e84393;
+  font-weight: 500;
+}
+
+/* --- Remove Icon --- */
+.listproduct-remove-icon {
+  width: 26px;
+  height: 26px;
+  cursor: pointer;
+  opacity: 0.75;
+  transition: all 0.3s ease;
+  padding: 6px;
+  border-radius: 50%;
+  background-color: #ffe6ee;
+}
+.listproduct-remove-icon:hover {
+  transform: rotate(90deg) scale(1.2);
+  opacity: 1;
+  background-color: #f8a5c2;
+}
+
+/* --- Toast --- */
+.toast {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background: rgba(255, 255, 255, 0.95);
+  color: #e84393;
+  padding: 15px 25px;
+  border-radius: 14px;
+  font-size: 14px;
+  box-shadow: 0 6px 28px rgba(232, 67, 147, 0.25);
+  animation: slideIn 0.5s ease, fadeOut 3s 2s forwards;
+  z-index: 9999;
+  border: 1px solid #ffd1e3;
+  backdrop-filter: blur(10px);
+}
+
+/* Toast animations */
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+/* --- Floating Action Button --- */
+.fab {
+  position: fixed;
+  bottom: 40px;
+  left: 40px;
+  background-color: #e84393;
+  color: white;
+  padding: 16px 18px;
+  border-radius: 50%;
+  font-size: 24px;
+  box-shadow: 0 8px 20px rgba(232, 67, 147, 0.3);
+  cursor: pointer;
+  transition: transform 0.3s ease, background 0.3s ease;
+  z-index: 10000;
+}
+
+.fab:hover {
+  transform: rotate(360deg) scale(1.1);
+  background-color: #ff6fa2;
+}
+.fab:active {
+  animation: explode 0.6s ease-in-out forwards;
+}
+
+/* Confetti pop on FAB click */
+@keyframes explode {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 rgba(255, 255, 255, 0);
+  }
+  50% {
+    transform: scale(1.4);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* --- Responsive --- */
+@media (max-width: 900px) {
+  .listproduct-format-main,
+  .listproduct-format {
+    grid-template-columns: 1fr 2fr 1fr 1fr;
+    grid-template-rows: auto auto;
+    grid-row-gap: 10px;
+  }
+
+  .listproduct-remove-icon {
+    grid-column: span 4;
+    justify-self: flex-end;
+  }
+}

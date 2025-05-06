@@ -1,0 +1,123 @@
+.add-product {
+  background-color: var(--white);
+  position: relative;
+  padding: 40px;
+  padding-top: 20px;
+  max-width: 800px;
+  margin: 40px auto;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  font-family: var(--font);
+  height: 500px;
+}
+
+.addproduct-itemfield {
+  margin-bottom: 24px;
+}
+
+.addproduct-itemfield p {
+  margin-bottom: 8px;
+  font-size: 16px;
+  color: var(--text-dark);
+  font-weight: 500;
+}
+
+.addproduct-itemfield input,
+.addproduct-itemfield select {
+  width: 95%;
+  height: 48px;
+  padding: 0 15px;
+  margin-top: 0;
+  font-size: 14px;
+  border-radius: var(--radius);
+  border: 1px solid #ddd;
+  background-color: #fafafa;
+  transition: border 0.2s ease;
+}
+
+.addproduct-itemfield input:focus,
+.addproduct-itemfield select:focus {
+  border-color: var(--pink-main);
+  outline: none;
+  background-color: #fff0f5;
+}
+
+.addproduct-price {
+  display: grid;
+  grid-template-columns: 40% 45%;
+  gap: 50px;
+}
+
+@media (max-width: 600px) {
+  .addproduct-price {
+    grid-template-columns: 1fr;
+  }
+}
+
+.addproduct-itemfield label img {
+  width: 120px;
+  border: 2px dashed var(--pink-main);
+  border-radius: var(--radius);
+  padding: 10px;
+  background-color: #fff;
+  cursor: pointer;
+  transition: "background" 0.2s;
+}
+
+.addproduct-itemfield label img:hover {
+  background-color: #fce4ec;
+}
+
+.addproduct-btn {
+  width: 50%;
+  position: absolute;
+  top: 420px;
+  right: 40px;
+  padding: 14px;
+  background-color: var(--pink-main);
+  color: white;
+  font-size: 16px;
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: "background" 0.3s;
+}
+
+.addproduct-btn:hover {
+  background-color: var(--pink-hover);
+}
+
+/* Toast Message */
+.toast {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background: rgba(255, 255, 255, 0.9);
+  color: #e84393;
+  padding: 15px 25px;
+  border-radius: 12px;
+  font-size: 14px;
+  box-shadow: 0 4px 20px rgba(232, 67, 147, 0.3);
+  animation: slideIn 0.5s ease, fadeOut 3s 1.5s forwards;
+  z-index: 9999;
+  border: 1px solid #ffd1e3;
+  backdrop-filter: blur(8px);
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}

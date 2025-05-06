@@ -1,0 +1,56 @@
+:root {
+    --pink-bg: #fff0f5;
+    --pink-main: #f06292;
+    --pink-hover: #ec407a;
+    --white: #ffffff;
+    --text-dark: #333;
+    --text-light: #555;
+    --shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    --radius: 12px;
+    --font: 'Poppins', sans-serif;
+  }
+  
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 60px;
+    background-color: var(--pink-bg);
+    box-shadow: var(--shadow);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    font-family: var(--font);
+  }
+  
+  .nav-logo {
+    width: 160px;
+  }
+  
+  .nav-profile {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 2px solid var(--pink-main);
+    transition: transform 0.3s;
+  }
+  
+  .nav-profile:hover {
+    transform: scale(1.05);
+  }
+  
+  @media (max-width: 768px) {
+    .navbar {
+      padding: 15px 30px;
+    }
+  
+    .nav-logo {
+      width: 120px;
+    }
+  
+    .nav-profile {
+      width: 40px;
+      height: 40px;
+    }
+  }
+  
