@@ -1,0 +1,36 @@
+/* Breadcrumb with Pink Theme */
+.breadcrumb {
+    display: inline-flex; /* Shrinks to fit content */
+    align-items: center;
+    gap: 8px;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    margin-top: 30px;
+    margin-left: 30px;
+    margin-bottom: 30px;
+    text-transform: capitalize;
+    padding: 12px 18px;
+    background: linear-gradient(135deg, #ff69b4, #ff1493);
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(255, 20, 147, 0.3);
+    white-space: nowrap; /* Prevents text from breaking */
+    width: auto; /* Ensures it fits text */
+}
+
+
+/* Breadcrumb Links */
+.breadcrumb a {
+    text-decoration: none;
+    color: #a62b6e; /* Slightly darker pink for links */
+    transition: color 0.3s ease-in-out;
+}
+
+.breadcrumb a:hover {
+    color: #ff4f91; /* Bright pink on hover */
+}
+
+/* Separator (if using ">" or "/") */
+.breadcrumb span {
+    color: #c85c8e; /* Soft muted pink */
+}
