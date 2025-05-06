@@ -6,7 +6,6 @@ const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
 const path = require("path");
 const multer = require("multer");
-const { string, object } = require("zod");
 
 app.use(express.json());
 app.use(cors()); // This allows all origins. You can restrict it to a specific origin if necessary.
