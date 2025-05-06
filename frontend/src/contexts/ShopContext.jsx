@@ -1,6 +1,6 @@
 import React, { createContext, useState, useEffect } from "react";
 
-export const ShopContext = createContext(null);
+export const ShopContext = createContext(null); 
 
 const getDefaultCart = () => {
   let cart = {};
@@ -38,9 +38,9 @@ const ShopContextProvider = (props) => {
     fetch("https://react-node-ecommerce-2agh.onrender.com/getcart", {
       method: "POST", 
       headers: {
-        Accept: "application/json",
+        Accept: "application/fomr-data",
         "auth-token": `${localStorage.getItem("auth-token")}`,
-        "Content-Type": "application-json"
+        "Content-Type": "application/json"
       },
       body: ""
     }).then((response) => response.json())
@@ -53,7 +53,7 @@ const ShopContextProvider = (props) => {
       fetch("https://react-node-ecommerce-2agh.onrender.com/addtocart", {
         method: "POST",
         headers: {
-          Accept: "application/json",
+          Accept: "application/form-data",
           "auth-token": localStorage.getItem("auth-token"),
           "Content-Type": "application/json",
         },
@@ -70,7 +70,7 @@ const ShopContextProvider = (props) => {
       fetch("https://react-node-ecommerce-2agh.onrender.com/removefromcart", {
         method: "POST",
         headers: {
-          Accept: "application/json",
+          Accept: "application/form-data",
           "auth-token": localStorage.getItem("auth-token"),
           "Content-Type": "application/json",
         },
