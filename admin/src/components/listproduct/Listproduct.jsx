@@ -6,7 +6,7 @@ const Listproduct = () => {
   const [allproducts, setAllProducts] = useState([]);
 
   const fetchInfo = async () => {
-    await fetch("http://localhost:4000/allproducts")
+    await fetch("https://react-node-ecommerce-2agh.onrender.com/allproducts")
       .then((resp) => resp.json())
       .then((data) => {
         console.log(data); // Log the response to verify its structure
@@ -26,7 +26,7 @@ const Listproduct = () => {
   }, []);
 
   const remove_product = async (id) => {
-    await fetch("http://localhost:4000/removeproduct", {
+    await fetch("https://react-node-ecommerce-2agh.onrender.com/removeproduct", {
       method: "POST",
       headers: {
         Accept: "application/json",

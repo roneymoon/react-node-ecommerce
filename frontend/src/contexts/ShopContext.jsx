@@ -16,7 +16,7 @@ const ShopContextProvider = (props) => {
 
   useEffect(() => {
     // fetching all the products everytime 
-    fetch("http://localhost:4000/allproducts")
+    fetch("https://react-node-ecommerce-2agh.onrender.com/allproducts")
       .then((response) => response.json())
       .then((data) => {
         console.log("Fetched products:", data);
@@ -35,7 +35,7 @@ const ShopContextProvider = (props) => {
       });
 
     // fetching all the cart items from user object whenever logged-in
-    fetch("http://localhost:4000/getcart", {
+    fetch("https://react-node-ecommerce-2agh.onrender.com/getcart", {
       method: "POST", 
       headers: {
         Accept: "application/json",
@@ -50,7 +50,7 @@ const ShopContextProvider = (props) => {
   const addToCart = (itemId) => {
     setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] + 1 }));
     if(localStorage.getItem("auth-token")){
-      fetch("http://localhost:4000/addtocart", {
+      fetch("https://react-node-ecommerce-2agh.onrender.com/addtocart", {
         method: "POST",
         headers: {
           Accept: "application/json",
@@ -67,7 +67,7 @@ const ShopContextProvider = (props) => {
   const removeFromCart = (itemId) => {
     setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] - 1 }));
     if(localStorage.getItem("auth-token")){
-      fetch("http://localhost:4000/removefromcart", {
+      fetch("https://react-node-ecommerce-2agh.onrender.com/removefromcart", {
         method: "POST",
         headers: {
           Accept: "application/json",
