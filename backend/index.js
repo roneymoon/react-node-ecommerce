@@ -1,67 +1,49 @@
+
 const express = require("express");
 const app = express();
 const cors = require("cors");
 const mongoose = require("mongoose");
+const jwt = require("jsonwebtoken");
 const path = require("path");
 const multer = require("multer");
-const fs = require("fs");
-const axios = require("axios");
-const jwt = require("jsonwebtoken");
-require("dotenv").config();
-
-const port = process.env.PORT || 5000;
 
 app.use(express.json());
-app.use(cors());
+app.use(cors()); // This allows all origins. You can restrict it to a specific origin if necessary.
 
-// Create temp folder if it doesn't exist
-const tempDir = path.join(__dirname, "temp");
-if (!fs.existsSync(tempDir)) {
-  fs.mkdirSync(tempDir);
-}
+const port = process.env.PORT || 4000;
 
-// Multer storage for temporary image upload
+// database connection with mongodb
+mongoose.connect(
+  "mongodb+srv://roneymoon:r0newhy123@cluster0.l5cxqb4.mongodb.net/e-commerce"
+);
+
+// API creation
+app.get("/", (req, res) => {
+  res.send("express app is running");
+});
+
+// image storage engine
 const storage = multer.diskStorage({
-  destination: tempDir,
+  destination: "uploads/images",
   filename: function (req, file, cb) {
-    cb(null, `${file.fieldname}_${Date.now()}${path.extname(file.originalname)}`);
+    cb(
+      null,
+      `${file.fieldname}_${Date.now()}${path.extname(file.originalname)}`
+    );
   },
 });
-const upload = multer({ storage });
 
-// MongoDB connection
-mongoose.connect("mongodb+srv://roneymoon:r0newhy123@cluster0.l5cxqb4.mongodb.net/e-commerce");
+const upload = multer({ storage: storage });
 
-// Image upload route using ImgBB
-app.post("/upload", upload.single("product"), async (req, res) => {
-  try {
-    const imagePath = path.join(tempDir, req.file.filename);
-    const imageBuffer = fs.readFileSync(imagePath);
-    const base64Image = imageBuffer.toString("base64");
+// creating an endpoint for images
+app.use("/images", express.static("uploads/images"));
 
-    if (!process.env.IMGBB_API_KEY) {
-      throw new Error("IMGBB_API_KEY not found in environment variables");
-    }
-    
-    const imgbbApiKey = process.env.IMGBB_API_KEY; // Store your key in .env
-    const response = await axios.post("https://api.imgbb.com/1/upload", null, {
-      params: {
-        key: imgbbApiKey,
-        image: base64Image,
-        name: req.file.filename,
-      },
-    });
-
-    fs.unlinkSync(imagePath); // Clean up local file
-
-    res.status(200).json({
-      success: 1,
-      image_url: response.data.data.url,
-    });
-  } catch (err) {
-    console.error("Upload error:", err);
-    res.status(500).json({ success: 0, error: "Image upload failed" });
-  }
+// creating an endpoint for upload
+app.post("/upload", upload.single("product"), (req, res) => {
+  res.status(200).json({
+    success: 1,
+    image_url: `http://localhost:${port}/images/${req.file.filename}`,
+  });
 });
 
 // schema for creating products
