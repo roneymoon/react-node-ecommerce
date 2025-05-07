@@ -6,6 +6,8 @@ const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
 const path = require("path");
 const multer = require("multer");
+const { v2: cloudinary } = require('cloudinary');
+const { CloudinaryStorage } = require('multer-storage-cloudinary');
 
 app.use(express.json());
 app.use(cors()); // This allows all origins. You can restrict it to a specific origin if necessary.
@@ -22,27 +24,31 @@ app.get("/", (req, res) => {
   res.send("express app is running");
 });
 
-// image storage engine
-const storage = multer.diskStorage({
-  destination: "uploads/images",
-  filename: function (req, file, cb) {
-    cb(
-      null,
-      `${file.fieldname}_${Date.now()}${path.extname(file.originalname)}`
-    );
+// Cloudinary config
+cloudinary.config({
+  cloud_name: 'drpjtjxbh',     
+  api_key: '493594296157623',          
+  api_secret: '-CakOXwCBCrP6hqeFA8RWhtytzs',     
+});
+
+// Multer storage setup with Cloudinary
+const storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: 'my_uploads',             // optional folder in Cloudinary
+    allowed_formats: ['jpg', 'png'],
   },
 });
 
-const upload = multer({ storage: storage });
+const upload = multer({ storage });
 
-// creating an endpoint for images
-app.use("/images", express.static("uploads/images"));
+// 👉 POST route to upload image
+app.post('/upload', upload.single('image'), (req, res) => {
+  if (!req.file) return res.status(400).json({ message: 'No file uploaded' });
 
-// creating an endpoint for upload
-app.post("/upload", upload.single("product"), (req, res) => {
-  res.status(200).json({
-    success: 1,
-    image_url: `http://localhost:${port}/images/${req.file.filename}`,
+  res.json({
+    message: 'Image uploaded successfully',
+    imageUrl: req.file.path,          // Cloudinary hosted image URL
   });
 });
 
