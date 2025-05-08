@@ -9,7 +9,10 @@ const multer = require("multer");
 
 
 app.use(express.json());
-app.use(cors()); // This allows all origins. You can restrict it to a specific origin if necessary.
+app.use(cors({
+  origin: "*", // or your frontend URL for tighter control
+  methods: ["GET", "POST"],
+})); // This allows all origins. You can restrict it to a specific origin if necessary.
 
 const port = process.env.PORT || 4000;
 
