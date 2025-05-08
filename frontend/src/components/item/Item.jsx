@@ -7,7 +7,7 @@ const Item = (props) => {
     <div className='item'>
       <Link to={`/product/${props.id}`}><img
         onClick={() => window.scrollTo(0, 0)}
-        src={`https://react-node-ecommerce-2agh.onrender.com/images/${props.image}`}
+        src={props.image}
         alt={props.name}
       /></Link>
       <p>{props.name}</p>
