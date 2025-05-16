@@ -4,8 +4,11 @@ const app = express();
 const cors = require("cors");
 const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
-const path = require("path");
 const multer = require("multer");
+const cloudinary = require('cloudinary').v2;
+
+
+require('dotenv').config();
 
 
 app.use(express.json());
@@ -26,28 +29,32 @@ app.get("/", (req, res) => {
   res.send("express app is running");
 });
 
-// image storage engine
-const storage = multer.diskStorage({
-  destination: "uploads/images",
-  filename: function (req, file, cb) {
-    cb(
-      null,
-      `${file.fieldname}_${Date.now()}${path.extname(file.originalname)}`
-    );
-  },
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.CLOUD_API_KEY,
+  api_secret: process.env.CLOUD_API_SECRET,
 });
 
-const upload = multer({ storage: storage });
+// Multer setup
+const storage = multer.memoryStorage();
+const upload = multer({ storage });
 
-// creating an endpoint for images
-app.use("/images", express.static(path.join(__dirname, "uploads/images")));
+// Upload route
+app.post('/upload', upload.single('product'), async (req, res) => {
+  try {
+    const stream = cloudinary.uploader.upload_stream({ folder: "products" }, (error, result) => {
+      if (error) {
+        console.error(error);
+        return res.status(500).json({ success: false, message: "Upload failed" });
+      }
+      return res.status(200).json({ success: true, image_url: result.secure_url });
+    });
 
-// creating an endpoint for upload
-app.post("/upload", upload.single("product"), (req, res) => {
-  res.status(200).json({
-    success: 1,
-    image_url: `https://react-node-ecommerce-2agh.onrender.com/images/${req.file.filename}`,
-  });  
+    stream.end(req.file.buffer);
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ success: false, message: err.message });
+  }
 });
 
 // schema for creating products
